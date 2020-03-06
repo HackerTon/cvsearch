@@ -1,16 +1,17 @@
 import numpy as np
 import cv2
+import argparse
 
 
-def loss(coordinate, radius):
+def loss(coordinate, origin):
     index = (coordinate[0] - 297)**2
     index += (coordinate[1] - 116)**2
 
     return index
 
 
-if __name__ == "__main__":
-    img = cv2.imread('image2.png')
+def main(args):
+    img = cv2.imread(args.i)
 
     metric = 100
     best_param = None
@@ -43,8 +44,7 @@ if __name__ == "__main__":
 
             for i in circles[0, :]:
                 center = (i[0], i[1])
-                radius = i[2]
-                metric += loss(center, radius)
+                metric += loss(center, (args.x, args.y))
 
         else:
             metric = best_metric
@@ -57,3 +57,15 @@ if __name__ == "__main__":
                           'minr': minRadius,
                           'maxr': maxRadius}
             print(f'Best metric: {best_metric}, Best param: {best_param}')
+
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+
+    parser.add_argument('-i', required=True, help='')
+    parser.add_argument('-x', required=True, help='')
+    parser.add_argument('-y', required=True, help='')
+
+    args = parser.parse_args()
+
+    main(args)
