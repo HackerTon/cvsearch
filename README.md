@@ -16,7 +16,9 @@ These instructions guide you on how to use this program.
 Firstcommand
 
 **input** : filename
+
 **coordinateX** : coordinate in the x-axis for your image
+
 **coordinateY** : coordinate in the y-axis for your image
 ```
 python randomsearch.py -i input -x coordinateX  -y coordinateY
